@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ListItemView: View {
-    @EnvironmentObject var callbacks:ListViewItemCallbacks
+struct ListItemView<MenuRenderer: View, ContextMenuRenderer: View>: View {
     var item:BookSummary
+    let menu:MenuRenderer
+    let contextMenu:ContextMenuRenderer
     
     var body: some View {
         HStack
@@ -29,21 +30,17 @@ struct ListItemView: View {
                     .lineLimit(1)
             }
             Spacer()
-            Menu {
-                ListItemContextMenu().environmentObject(callbacks)
-            } label: {
-                Image(systemName: "ellipsis")
-            }
+            menu
         }
         .contextMenu {
-            ListItemContextMenu().environmentObject(callbacks)
+            contextMenu
         }
     }
 }
 
 struct ListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemView(item: PreviewData().bookSummary)
-            .environmentObject(ListViewItemCallbacks())
+        ListItemView(item: PreviewData().bookSummary,
+            menu: WishlistItemMenu(), contextMenu: WishlistItemContextMenu())
     }
 }

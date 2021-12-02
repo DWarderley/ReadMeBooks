@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ListViewItemCallbacks : ObservableObject {
+class WishlistListViewItemCallbacks : ObservableObject {
     var onMoveToRead:() -> Void
     var onMoveToStarted:() -> Void
     var onMoveUp:() -> Void

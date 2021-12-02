@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListItemContextMenu: View {
-    @EnvironmentObject var callbacks:ListViewItemCallbacks
+    @EnvironmentObject var callbacks:WishlistListViewItemCallbacks
     
     var body: some View {
         Button {
