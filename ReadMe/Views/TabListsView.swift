@@ -10,7 +10,7 @@ import SwiftUI
 struct TabListsView: View {
     var body: some View {
         TabView {
-            ListView(items: PreviewData().items, title: "Wishlist")
+            WishlistView()
             ListView(items: PreviewData().items, title: "Reading List")
             ListView(items: PreviewData().items, title: "Read")
         }

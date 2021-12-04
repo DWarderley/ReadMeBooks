@@ -9,26 +9,52 @@ import SwiftUI
 
 struct SearchView: View {
     @State private var toSearch = ""
+    @Binding var isVisible: Bool
     var items:[BookSummary]
     
     var body: some View {
-        NavigationView {
+        VStack{
+            HStack {
+                SearchBarView(toSearch: $toSearch, onCloseRequest: {
+                    isVisible = false
+                })
+                Button("Cancel") {
+                    isVisible = false
+                }
+                .padding(.trailing, 10)
+                .padding(.leading, -10)
+            }
             List {
-                ForEach(items) { item in
+                ForEach(search) { item in
                     ListItemView(item: item,
                          menu: ListItemDummyRenderer(),
                          contextMenu: ListItemDummyRenderer())
                 }
             }
             .listStyle(PlainListStyle())
+            .gesture(DragGesture()
+                 .onChanged({ _ in
+                     UIApplication.shared.dismissKeyboard()
+                 })
+             )
         }
-        .searchable(text: $toSearch)
-        .navigationTitle("Searchable Example")
+    }
+    
+    var search: [BookSummary] {
+        if toSearch.isEmpty {
+            return items
+        } else {
+            return items.filter {
+                $0.title.lowercased().contains(toSearch.lowercased()) ||
+                $0.author.lowercased().contains(toSearch.lowercased())
+            }
+        }
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(items:PreviewData().items)
+        SearchView(isVisible: .constant(true), items:PreviewData().items)
+.previewInterfaceOrientation(.portraitUpsideDown)
     }
 }

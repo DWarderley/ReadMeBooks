@@ -27,7 +27,7 @@ struct WishlistView: View {
             .padding(.trailing, 20)
         }
         .sheet(isPresented: $showSearch) {
-            SearchView(items:PreviewData().items)
+            SearchView(isVisible: $showSearch, items:PreviewData().items)
         }
     }
 }
