@@ -10,7 +10,8 @@ import SwiftUI
 struct SearchView: View {
     @State private var toSearch = ""
     @Binding var isVisible: Bool
-    var items:[BookSummary]
+    var items:[IBook]
+    let onSelected:(IBook) -> Void
     
     var body: some View {
         VStack{
@@ -25,10 +26,13 @@ struct SearchView: View {
                 .padding(.leading, -10)
             }
             List {
-                ForEach(search) { item in
-                    ListItemView(item: item,
+                ForEach(search, id: \.isbn) { item in
+                    ListItemView(book: item,
                          menu: ListItemDummyRenderer(),
                          contextMenu: ListItemDummyRenderer())
+                        .onTapGesture {
+                            onSelected(item)
+                        }
                 }
             }
             .listStyle(PlainListStyle())
@@ -40,13 +44,13 @@ struct SearchView: View {
         }
     }
     
-    var search: [BookSummary] {
+    var search: [IBook] {
         if toSearch.isEmpty {
             return items
         } else {
             return items.filter {
-                $0.title.lowercased().contains(toSearch.lowercased()) ||
-                $0.author.lowercased().contains(toSearch.lowercased())
+                $0.getTitle().lowercased().contains(toSearch.lowercased()) ||
+                $0.getAuthor().lowercased().contains(toSearch.lowercased())
             }
         }
     }
@@ -54,7 +58,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(isVisible: .constant(true), items:PreviewData().items)
-.previewInterfaceOrientation(.portraitUpsideDown)
+        SearchView(isVisible: .constant(true), items: PreviewData().items, onSelected: { _ in })
     }
 }

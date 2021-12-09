@@ -7,7 +7,13 @@
 
 import SwiftUI
 
-struct ListItemDummyRenderer: View {
+struct ListItemDummyRenderer: ListMenu {
+    var book: IBook?
+    
+    init() {
+        book = BookSummary()
+    }
+    
     var body: some View {
         EmptyView()
     }

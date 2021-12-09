@@ -9,10 +9,11 @@ import SwiftUI
 
 struct WishlistView: View {
     @State private var showSearch: Bool = false
+    let bookOperations:IBookOperations
     
     var body: some View {
         ZStack {
-            ListView(items: PreviewData().items, title: "Wishlist")
+            ListView(bookOperations: bookOperations, stage: Stage.Wishlist, title: "Wishlist", emptyListText: "You don't have any books in your wishlist. Try adding some")
             ZStack(alignment: .bottomTrailing) {
                 Color.clear
                 Button {
@@ -27,13 +28,15 @@ struct WishlistView: View {
             .padding(.trailing, 20)
         }
         .sheet(isPresented: $showSearch) {
-            SearchView(isVisible: $showSearch, items:PreviewData().items)
+            SearchView(isVisible: $showSearch, items:PreviewData().items) { bookSummary in
+                bookOperations.createBook(isbn: bookSummary.isbn)
+            }
         }
     }
 }
 
 struct WishlistView_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistView()
+        WishlistView(bookOperations: MockBookOperations(books: PreviewData().items))
     }
 }

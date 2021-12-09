@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct TabListsView: View {
+    let bookOperations:IBookOperations
+    
     var body: some View {
         TabView {
-            WishlistView()
-            ListView(items: PreviewData().items, title: "Reading List")
-            ListView(items: PreviewData().items, title: "Read")
+            WishlistView(bookOperations: bookOperations)
+            ListView(bookOperations: bookOperations, stage: Stage.Reading, title: "Reading List", emptyListText: "You aren't currently reading any books")
+            ListView(bookOperations: bookOperations, stage: Stage.Read, title: "Read",  emptyListText: "You haven't finished any books yet. Get to it!")
         }
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .always))
@@ -21,6 +23,6 @@ struct TabListsView: View {
 
 struct TabListsView_Previews: PreviewProvider {
     static var previews: some View {
-        TabListsView()
+        TabListsView(bookOperations: MockBookOperations(books: PreviewData().items))
     }
 }

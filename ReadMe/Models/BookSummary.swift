@@ -8,19 +8,38 @@
 import Foundation
 import SwiftUI
 
-struct BookSummary: Identifiable
-{
-    let id: String
+struct BookSummary: IBook {
+    var isbn: String
     let title:String
     let author:String
-    let image:Image
+    let imageURL:String
     
     init(isbn:String, title:String,
-         author:String, image:Image)
+         author:String, imageURL:String)
     {
-        self.id = isbn;
+        self.isbn = isbn;
         self.title = title;
         self.author = author;
-        self.image = image;
+        self.imageURL = imageURL;
     }
+    
+    init() {
+        self.isbn = ""
+        self.title = ""
+        self.author = ""
+        self.imageURL = ""
+    }
+    
+    func getAuthor() -> String {
+        return author
+    }
+    
+    func getTitle() -> String {
+        return title
+    }
+    
+    func getImageURL() -> String {
+        return imageURL
+    }
+    
 }

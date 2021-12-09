@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct DetailView: View {
-    var item:BookSummary
+    var item:IBook
     
     var body: some View {
         ScrollView {
             VStack (spacing: 10){
-                item.image
-                    .resizable()
+                AsyncImage(url: URL(string:item.getImageURL())) { image in
+                    image.resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxHeight: 200)
-                Text(item.title)
+                } placeholder: {
+                    frame(width: 100, height: 200)
+                }
+                Text(item.getTitle())
                     .font(.largeTitle)
                     .lineLimit(3)
                     .multilineTextAlignment(.center)
-                Text(item.author)
+                Text(item.getAuthor())
                 Divider()
                 Spacer()
             }

@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct ReadMeApp: App {
+    let persistence:PersistenceController = PersistenceController()
+    
     var body: some Scene {
         WindowGroup {
-            TabListsView()
+            TabListsView(bookOperations: BookOperations(viewContext: persistence.container.viewContext))
         }
     }
 }

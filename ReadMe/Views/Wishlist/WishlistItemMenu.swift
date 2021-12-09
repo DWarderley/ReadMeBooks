@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct WishlistItemMenu: View {
-    @EnvironmentObject var callbacks:WishlistListViewItemCallbacks
+struct WishlistItemMenu: ListMenu {
+    
+    let callbacks:WishlistListViewItemCallbacks
+    var book: IBook?
     
     var body: some View {
         Menu {
-            ListItemContextMenu().environmentObject(callbacks)
+            WishlistItemContextMenu(callbacks: callbacks, book: book)
         } label: {
             Image(systemName: "ellipsis")
         }
