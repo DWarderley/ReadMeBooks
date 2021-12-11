@@ -9,50 +9,37 @@ import SwiftUI
 
 struct WishlistItemContextMenu: ListItemMenu {
     let callbacks:WishlistListViewItemCallbacks
-    @State private var book: IBook? = nil
     
-    init(callbacks:WishlistListViewItemCallbacks) {
-        self.callbacks = callbacks
-    }
-    
-    init(callbacks:WishlistListViewItemCallbacks, book:IBook) {
-        self.callbacks = callbacks
-        self.book = book
-    }
-    
-    var body: some View {
-         Button {
-            callbacks.onDelete()
-        } label: {
-            Label("Delete", systemImage: "minus.circle")
-        }
-        
+    @ViewBuilder
+    public func render(book:IBook) -> some View {
         Button {
-            callbacks.onMoveDown()
+           callbacks.onDelete(book)
         } label: {
-            Label("Move Down", systemImage: "arrow.down")
+           Label("Delete", systemImage: "minus.circle")
         }
-        
+
         Button {
-            callbacks.onMoveUp()
+           callbacks.onMoveDown()
         } label: {
-            Label("Move Up", systemImage: "arrow.up")
+           Label("Move Down", systemImage: "arrow.down")
         }
-        
+
         Button {
-            callbacks.onMoveToRead(book!)
+           callbacks.onMoveUp()
         } label: {
-            Label("Move to Read", systemImage: "hand.thumbsup")
+           Label("Move Up", systemImage: "arrow.up")
         }
-        
+
         Button {
-            callbacks.onMoveToStarted(book!)
+           callbacks.onMoveToRead(book)
         } label: {
-            Label("Move to Started", systemImage: "book")
+           Label("Move to Read", systemImage: "hand.thumbsup")
         }
-    }
-    
-    func setBook(book: IBook) {
-        self.book = book
+
+        Button {
+           callbacks.onMoveToStarted(book)
+        } label: {
+           Label("Move to Started", systemImage: "book")
+        }
     }
 }

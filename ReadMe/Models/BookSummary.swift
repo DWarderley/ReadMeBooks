@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct BookSummary: IBook {
+class BookSummary: IBook {
     var isbn: String
     let title:String
     let author:String
@@ -29,17 +29,4 @@ struct BookSummary: IBook {
         self.author = ""
         self.imageURL = ""
     }
-    
-    func getAuthor() -> String {
-        return author
-    }
-    
-    func getTitle() -> String {
-        return title
-    }
-    
-    func getImageURL() -> String {
-        return imageURL
-    }
-    
 }

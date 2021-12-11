@@ -23,13 +23,12 @@ struct ListView<MenuRenderer: ListItemMenu, ContextMenuRenderer: ListItemMenu>: 
             List {
                 if(books.items.count > 0) {
                     ForEach(books.items, id: \.isbn) { book in
-                        ListItemView(book: book,
-                             menu: menu,
-                             contextMenu: contextMenu)
-                            .onTapGesture {
-                                selected = book
-                                self.showDetail = true
-                            }
+                        ListItemView(book: book,  menu: menu,
+                                     contextMenu: contextMenu,
+                         onTapped: {
+                            selected = book
+                            self.showDetail = true
+                        })
                     }
                 }
                 else {

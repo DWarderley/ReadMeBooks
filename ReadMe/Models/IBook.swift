@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol IBook {
+protocol IBook : AnyObject {
     var isbn:String { get }
     var author:String { get }
     var title:String { get }

@@ -13,5 +13,7 @@ struct ListItemDummyRenderer: ListItemMenu {
         EmptyView()
     }
     
-    func setBook(book: IBook) {}
+    public func render(book:IBook) -> some View {
+        EmptyView()
+    }
 }

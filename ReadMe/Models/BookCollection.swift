@@ -19,4 +19,10 @@ class BookCollection : ObservableObject {
     func add(book:IBook) {
         items.append(book)
     }
+    
+    func remove(book toRemove:IBook) {
+        if let index = items.firstIndex(where: { $0 === toRemove }) {
+            items.remove(at: index)
+        }
+    }
 }

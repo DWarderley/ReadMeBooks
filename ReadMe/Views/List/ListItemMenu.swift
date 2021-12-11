@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol ListItemMenu : View {
-    func setBook(book:IBook)
+protocol ListItemMenu {
+    associatedtype T:View
+    func render(book:IBook) -> Self.T
 }

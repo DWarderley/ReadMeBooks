@@ -32,8 +32,8 @@ struct WishlistView: View {
                     print("On move up")
                 }, onMoveDown: {
                     print("On move down")
-                }, onDelete: {
-                    print("On delete")
+                }, onDelete: { book in
+                    wishlists?.remove(book: book)
                 })
             
             ListView(books: wishlists!, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks), title: "Wishlist", emptyListText: "You don't have any books in your wishlist. Try adding some")

@@ -7,37 +7,45 @@
 
 import SwiftUI
 
-struct ListItemView<MenuRenderer: ListItemMenu, ContextMenuRenderer: ListItemMenu>: View {
+struct ListItemView<MenuRenderer:ListItemMenu, ContextMenuRenderer:ListItemMenu> : View {
     var book:IBook
-    @State var menu:MenuRenderer
-    @State var contextMenu:ContextMenuRenderer
+    var menu:MenuRenderer
+    var contextMenu:ContextMenuRenderer
+    var onTapped:() -> Void
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string:book.imageURL)) { image in
-                    image.resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 45)
-                    .frame(height: 45)
-            } placeholder: {
-                Image(systemName: "circle.dotted")
-                    .frame(width: 45, height: 45)
+            HStack {
+                AsyncImage(url: URL(string:book.imageURL)) { image in
+                        image.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 45)
+                        .frame(height: 45)
+                } placeholder: {
+                    Image(systemName: "circle.dotted")
+                        .frame(width: 45, height: 45)
+                }
+                VStack(alignment: .leading) {
+                    Text(book.title)
+                        .font(.title)
+                        .lineLimit(1)
+                    Text(book.author)
+                        .font(.caption)
+                        .lineLimit(1)
+                }
+                
+                Spacer()
             }
-            VStack(alignment: .leading) {
-                Text(book.title)
-                    .font(.title)
-                    .lineLimit(1)
-                Text(book.author)
-                    .font(.caption)
-                    .lineLimit(1)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                onTapped()
             }
-            Spacer()
-            let _ = menu.setBook(book: book)
-            menu
+               
+            menu.render(book: book)
         }
+         
         .contextMenu {
-            let _ = contextMenu.setBook(book: book)
-            contextMenu
+            contextMenu.render(book: book)
         }
     }
 }
@@ -46,6 +54,6 @@ struct ListItemView_Previews: PreviewProvider {
     static var previews: some View {
         let callbacks = WishlistListViewItemCallbacks()
 
-        ListItemView(book: PreviewData().bookSummary, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks))
+        ListItemView(book: PreviewData().bookSummary, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks), onTapped: {})
     }
 }
