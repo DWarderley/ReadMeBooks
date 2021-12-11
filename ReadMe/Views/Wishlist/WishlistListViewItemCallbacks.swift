@@ -10,12 +10,12 @@ import Foundation
 class WishlistListViewItemCallbacks : ObservableObject {
     var onMoveToRead:(IBook) -> Void
     var onMoveToStarted:(IBook) -> Void
-    var onMoveUp:() -> Void
-    var onMoveDown:() -> Void
+    var onMoveUp:(IBook) -> Void
+    var onMoveDown:(IBook) -> Void
     var onDelete:(IBook) -> Void
     
     init(onMoveToRead:@escaping (IBook) -> Void, onMoveToStarted:@escaping (IBook) -> Void,
-         onMoveUp:@escaping () -> Void, onMoveDown:@escaping () -> Void, onDelete:@escaping (IBook) -> Void) {
+         onMoveUp:@escaping (IBook) -> Void, onMoveDown:@escaping (IBook) -> Void, onDelete:@escaping (IBook) -> Void) {
         self.onMoveToRead = onMoveToRead
         self.onMoveToStarted = onMoveToStarted
         self.onMoveUp = onMoveUp
@@ -26,8 +26,8 @@ class WishlistListViewItemCallbacks : ObservableObject {
     init() {
         self.onMoveToRead = { _ in }
         self.onMoveToStarted = { _ in }
-        self.onMoveUp = {}
-        self.onMoveDown = {}
+        self.onMoveUp = { _ in}
+        self.onMoveDown = { _ in }
         self.onDelete = { _ in }
     }
 }

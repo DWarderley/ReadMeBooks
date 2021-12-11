@@ -54,6 +54,6 @@ struct ListItemView_Previews: PreviewProvider {
     static var previews: some View {
         let callbacks = WishlistListViewItemCallbacks()
 
-        ListItemView(book: PreviewData().bookSummary, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks), onTapped: {})
+        ListItemView(book: PreviewData().bookSummary, menu: WishlistItemMenu(callbacks: callbacks, bookCollection: BookCollection()), contextMenu: WishlistItemContextMenu(callbacks: callbacks, bookCollection: BookCollection()), onTapped: {})
     }
 }

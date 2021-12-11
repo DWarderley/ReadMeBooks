@@ -21,8 +21,30 @@ class BookCollection : ObservableObject {
     }
     
     func remove(book toRemove:IBook) {
-        if let index = items.firstIndex(where: { $0 === toRemove }) {
+        if let index = index(of: toRemove) {
             items.remove(at: index)
+        }
+    }
+    
+    func index(of book:IBook) -> Int? {
+        return items.firstIndex(where: { $0 === book })
+    }
+    
+    func count() -> Int {
+        return items.count
+    }
+    
+    func moveUp(book:IBook) {
+        if let index = index(of: book) {
+            items.remove(at: index)
+            items.insert(book, at: index - 1)
+        }
+    }
+    
+    func moveDown(book:IBook) {
+        if let index = index(of: book) {
+            items.remove(at: index)
+            items.insert(book, at: index + 1)
         }
     }
 }

@@ -12,4 +12,6 @@ protocol IBookOperations {
     func fetchStageCollection(stage:Stage) -> BookCollection
     func moveToReading(book:IBook)
     func moveToRead(book:IBook)
+    func delete(book: IBook)
+    func isTracked(isbn:String) -> Bool
 }

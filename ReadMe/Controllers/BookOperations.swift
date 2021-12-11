@@ -65,14 +65,39 @@ class BookOperations: IBookOperations {
     }
     
     func moveToReading(book: IBook) {
-        if let readingBook = book as? Book {
-            readingBook.stage = Stage.Reading.rawValue
+        if let wrapper = book as? CoreDataBookWrapper {
+            bookStages[Stage(rawValue: wrapper.book.stage)!]?.remove(book: book)
+            wrapper.book.stage = Stage.Reading.rawValue
+            bookStages[Stage.Reading]?.add(book: book)
+            save()
         }
     }
     
     func moveToRead(book: IBook) {
-        if let readingBook = book as? Book {
-            readingBook.stage = Stage.Read.rawValue
+        if let wrapper = book as? CoreDataBookWrapper {
+            bookStages[Stage(rawValue: wrapper.book.stage)!]?.remove(book: book)
+            wrapper.book.stage = Stage.Read.rawValue
+            bookStages[Stage.Read]?.add(book: book)
+            save()
         }
+    }
+    
+    func delete(book: IBook) {
+        if let wrapper = book as? CoreDataBookWrapper {
+            viewContext.delete(wrapper.book)
+            save()
+        }
+    }
+    
+    func isTracked(isbn: String) -> Bool {
+        for collection in bookStages.values {
+            for book in collection.items {
+                if book.isbn == isbn {
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
 }

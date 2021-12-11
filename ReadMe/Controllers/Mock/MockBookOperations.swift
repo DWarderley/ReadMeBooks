@@ -30,4 +30,9 @@ class MockBookOperations: IBookOperations {
     
     func moveToRead(book: IBook) {}
     
+    func delete(book: IBook) {}
+    
+    func isTracked(isbn: String) -> Bool {
+        return false
+    }
 }

@@ -10,10 +10,11 @@ import SwiftUI
 struct WishlistView: View {
     @State private var showSearch: Bool = false
     let bookOperations:IBookOperations
-    private var wishlists:BookCollection?
+    private var wishlists:BookCollection
     
     init(bookOperations:IBookOperations) {
         self.bookOperations = bookOperations
+        wishlists = BookCollection()
         wishlists = bookOperations.fetchStageCollection(stage: Stage.Wishlist)
      }
     
@@ -21,22 +22,21 @@ struct WishlistView: View {
         ZStack {
             let callbacks = WishlistListViewItemCallbacks(
                 onMoveToRead: { book in
-                    print("On move to read")
                     bookOperations.moveToRead(book: book)
                 },
                 onMoveToStarted: { book in
-                    print("On move started")
                     bookOperations.moveToReading(book: book)
                 },
-                onMoveUp: {
-                    print("On move up")
-                }, onMoveDown: {
-                    print("On move down")
+                onMoveUp: { book in
+                    wishlists.moveUp(book: book)
+                }, onMoveDown: { book in
+                    wishlists.moveDown(book: book)
                 }, onDelete: { book in
-                    wishlists?.remove(book: book)
+                    wishlists.remove(book: book)
+                    bookOperations.delete(book: book)
                 })
             
-            ListView(books: wishlists!, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks), title: "Wishlist", emptyListText: "You don't have any books in your wishlist. Try adding some")
+            ListView(books: wishlists, menu: WishlistItemMenu(callbacks: callbacks, bookCollection: wishlists), contextMenu: WishlistItemContextMenu(callbacks: callbacks, bookCollection: wishlists), title: "Wishlist", emptyListText: "You don't have any books in your wishlist. Try adding some")
             
             ZStack(alignment: .bottomTrailing) {
                 Color.clear
@@ -52,10 +52,16 @@ struct WishlistView: View {
             .padding(.trailing, 20)
         }
         .sheet(isPresented: $showSearch) {
-            SearchView(isVisible: $showSearch, items:PreviewData().items) { bookSummary in
+            SearchView(isVisible: $showSearch, items:availableBooks) { bookSummary in
                 bookOperations.createBook(book: bookSummary)
                 print("Created book")
             }
+        }
+    }
+    
+    var availableBooks: [IBook] {
+        PreviewData().items.filter { book in
+            return (bookOperations.isTracked(isbn: book.isbn) == false)
         }
     }
 }

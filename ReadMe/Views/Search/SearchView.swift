@@ -29,11 +29,10 @@ struct SearchView: View {
                 ForEach(search, id: \.isbn) { item in
                     ListItemView(book: item,
                          menu: ListItemDummyRenderer(),
-                                 contextMenu: ListItemDummyRenderer(), onTapped: {})
-                        .onTapGesture {
-                            onSelected(item)
-                            isVisible = false
-                        }
+                                 contextMenu: ListItemDummyRenderer(), onTapped: {
+                        onSelected(item)
+                        isVisible = false
+                    })
                 }
             }
             .listStyle(PlainListStyle())
