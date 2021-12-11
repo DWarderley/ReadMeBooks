@@ -7,13 +7,21 @@
 
 import SwiftUI
 
-struct WishlistItemContextMenu: ListMenu {
-    
+struct WishlistItemContextMenu: ListItemMenu {
     let callbacks:WishlistListViewItemCallbacks
-    var book: IBook?
+    @State private var book: IBook? = nil
+    
+    init(callbacks:WishlistListViewItemCallbacks) {
+        self.callbacks = callbacks
+    }
+    
+    init(callbacks:WishlistListViewItemCallbacks, book:IBook) {
+        self.callbacks = callbacks
+        self.book = book
+    }
     
     var body: some View {
-        Button {
+         Button {
             callbacks.onDelete()
         } label: {
             Label("Delete", systemImage: "minus.circle")
@@ -42,5 +50,9 @@ struct WishlistItemContextMenu: ListMenu {
         } label: {
             Label("Move to Started", systemImage: "book")
         }
+    }
+    
+    func setBook(book: IBook) {
+        self.book = book
     }
 }

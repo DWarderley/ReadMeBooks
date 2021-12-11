@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ListItemView<MenuRenderer: ListMenu, ContextMenuRenderer: ListMenu>: View {
+struct ListItemView<MenuRenderer: ListItemMenu, ContextMenuRenderer: ListItemMenu>: View {
     var book:IBook
     @State var menu:MenuRenderer
     @State var contextMenu:ContextMenuRenderer
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string:book.getImageURL())) { image in
+            AsyncImage(url: URL(string:book.imageURL)) { image in
                     image.resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 45)
@@ -24,19 +24,19 @@ struct ListItemView<MenuRenderer: ListMenu, ContextMenuRenderer: ListMenu>: View
                     .frame(width: 45, height: 45)
             }
             VStack(alignment: .leading) {
-                Text(book.getTitle())
+                Text(book.title)
                     .font(.title)
                     .lineLimit(1)
-                Text(book.getAuthor())
+                Text(book.author)
                     .font(.caption)
                     .lineLimit(1)
             }
             Spacer()
-            let _ = { menu.book = book }
+            let _ = menu.setBook(book: book)
             menu
         }
         .contextMenu {
-            let _ = { contextMenu.book = book }
+            let _ = contextMenu.setBook(book: book)
             contextMenu
         }
     }
@@ -46,7 +46,6 @@ struct ListItemView_Previews: PreviewProvider {
     static var previews: some View {
         let callbacks = WishlistListViewItemCallbacks()
 
-        ListItemView(book: PreviewData().bookSummary,
-                     menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks))
+        ListItemView(book: PreviewData().bookSummary, menu: WishlistItemMenu(callbacks: callbacks), contextMenu: WishlistItemContextMenu(callbacks: callbacks))
     }
 }

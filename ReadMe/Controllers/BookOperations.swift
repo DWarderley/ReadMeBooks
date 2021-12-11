@@ -9,21 +9,29 @@ import Foundation
 import CoreData
 
 class BookOperations: IBookOperations {
+    
     let viewContext:NSManagedObjectContext
-    var books:[Book]?
+    var bookStages:Dictionary<Stage, BookCollection> = [:]
     
     init(viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
-        self.books = load()
+        let books:[Book] = load()
+        
+        for stage in Stage.allCases {
+            bookStages[stage] = BookCollection()
+        }
+        
+        for book in books {
+            let stage:Stage = Stage(rawValue: book.stage)!
+            bookStages[stage]?.items.append(CoreDataBookWrapper(book: book))
+        }
     }
     
     private func load() -> [Book] {
         var books:[Book] = []
-        
         let request = Book.fetchRequest()
         do {
             books = try viewContext.fetch(request)
-            print("Got \(books.count) commits")
         } catch {
             print("Fetch failed")
         }
@@ -41,13 +49,30 @@ class BookOperations: IBookOperations {
         }
     }
     
-    func createBook(isbn:String) {
+    func createBook(book toCopy:IBook) {
         let book = Book(context: viewContext)
-        book.isbn = isbn
+        book.isbn = toCopy.isbn
+        book.author = toCopy.author
+        book.title = toCopy.title
+        book.imageURL = toCopy.imageURL
         book.stage = Stage.Wishlist.rawValue
+        bookStages[Stage.Wishlist]!.add(book: CoreDataBookWrapper(book: book))
+        save()
     }
     
-    func filterBy(stage: Stage) -> [IBook] {
-        return []
+    func fetchStageCollection(stage: Stage) ->BookCollection {
+        return bookStages[stage]!;
+    }
+    
+    func moveToReading(book: IBook) {
+        if let readingBook = book as? Book {
+            readingBook.stage = Stage.Reading.rawValue
+        }
+    }
+    
+    func moveToRead(book: IBook) {
+        if let readingBook = book as? Book {
+            readingBook.stage = Stage.Read.rawValue
+        }
     }
 }

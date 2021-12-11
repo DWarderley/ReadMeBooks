@@ -15,21 +15,8 @@ class CoreDataBookWrapper :  IBook {
         self.book = book
     }
     
-    func getIsbn() -> String {
-        return book.isbn
-    }
-    
-    func getAuthor() -> String {
-        return book.author
-    }
-    
-    func getTitle() -> String {
-        return book.title
-    }
-    
-    func getImageURL() -> String {
-        return book.imageURL
-    }
-    
     var isbn: String { get { return book.isbn }}
+    var author: String { get { return book.author }}
+    var title: String { get { return book.title }}
+    var imageURL: String { get { return book.imageURL }}
 }

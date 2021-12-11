@@ -7,14 +7,11 @@
 
 import SwiftUI
 
-struct ListItemDummyRenderer: ListMenu {
-    var book: IBook?
-    
-    init() {
-        book = BookSummary()
-    }
+struct ListItemDummyRenderer: ListItemMenu {
     
     var body: some View {
         EmptyView()
     }
+    
+    func setBook(book: IBook) {}
 }

@@ -8,6 +8,8 @@
 import Foundation
 
 protocol IBookOperations {
-    func createBook(isbn:String)
-    func filterBy(stage:Stage) -> [IBook]
+    func createBook(book:IBook)
+    func fetchStageCollection(stage:Stage) -> BookCollection
+    func moveToReading(book:IBook)
+    func moveToRead(book:IBook)
 }

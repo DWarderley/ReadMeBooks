@@ -17,9 +17,17 @@ class MockBookOperations: IBookOperations {
         self.books = books;
     }
     
-    func filterBy(stage: Stage) -> [IBook] {
-        return books
+    func fetchStageCollection(stage: Stage) -> BookCollection {
+        print("HELLEO")
+        let collection = BookCollection(items: books)
+        print("coll \(collection)")
+        return collection
     }
     
-    func createBook(isbn:String) {}
+    func createBook(book:IBook) {}
+    
+    func moveToReading(book: IBook) {}
+    
+    func moveToRead(book: IBook) {}
+    
 }

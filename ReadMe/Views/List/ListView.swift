@@ -7,43 +7,27 @@
 
 import SwiftUI
 
-struct ListView: View {
-    @State private var selectedEntry: IBook? = nil
+struct ListView<MenuRenderer: ListItemMenu, ContextMenuRenderer: ListItemMenu>: View {
     @State private var showDetail:Bool = false
+    @ObservedObject var books:BookCollection
+    @State var menu:MenuRenderer
+    @State var contextMenu:ContextMenuRenderer
     
-    let bookOperations:IBookOperations
-    let stage:Stage
     let title:String
     let emptyListText:String
     
     var body: some View {
         VStack {
+            var selected:IBook? = nil
             Text(title)
             List {
-                let books:[IBook] = bookOperations.filterBy(stage: stage)
-                
-                if(books.count > 0) {
-                    ForEach(books, id: \.isbn) { book in
-                        let calbacks = WishlistListViewItemCallbacks(
-                            onMoveToRead: { book in
-                                print("On move to read")
-                            },
-                            onMoveToStarted: { book in
-                                print("On move started")
-                            },
-                            onMoveUp: {
-                                print("On move up")
-                            }, onMoveDown: {
-                                print("On move down")
-                            }, onDelete: {
-                                print("On delete")
-                            })
-
+                if(books.items.count > 0) {
+                    ForEach(books.items, id: \.isbn) { book in
                         ListItemView(book: book,
-                             menu: WishlistItemMenu(callbacks: calbacks),
-                             contextMenu: WishlistItemContextMenu(callbacks: calbacks))
+                             menu: menu,
+                             contextMenu: contextMenu)
                             .onTapGesture {
-                                self.selectedEntry = book
+                                selected = book
                                 self.showDetail = true
                             }
                     }
@@ -54,7 +38,7 @@ struct ListView: View {
             }
             .listStyle(PlainListStyle())
             .sheet(isPresented: $showDetail) {
-                DetailView(item: selectedEntry!)
+                DetailView(item: selected!)
             }
         }
     }
@@ -62,8 +46,6 @@ struct ListView: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(bookOperations: MockBookOperations(books: PreviewData().items),
-                 stage: Stage.Wishlist,
-                 title:"Wishlist", emptyListText: "No entries")
+        ListView(books: BookCollection(items: PreviewData().items), menu: ListItemDummyRenderer(), contextMenu: ListItemDummyRenderer(), title: "Wishlist", emptyListText: "No entries")
     }
 }

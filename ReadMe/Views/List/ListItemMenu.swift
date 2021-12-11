@@ -8,6 +8,6 @@
 import Foundation
 import SwiftUI
 
-protocol ListMenu : View {
-    var book:IBook? { get set }
+protocol ListItemMenu : View {
+    func setBook(book:IBook)
 }

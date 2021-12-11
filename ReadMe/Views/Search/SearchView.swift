@@ -32,6 +32,7 @@ struct SearchView: View {
                          contextMenu: ListItemDummyRenderer())
                         .onTapGesture {
                             onSelected(item)
+                            isVisible = false
                         }
                 }
             }
@@ -49,8 +50,8 @@ struct SearchView: View {
             return items
         } else {
             return items.filter {
-                $0.getTitle().lowercased().contains(toSearch.lowercased()) ||
-                $0.getAuthor().lowercased().contains(toSearch.lowercased())
+                $0.title.lowercased().contains(toSearch.lowercased()) ||
+                $0.author.lowercased().contains(toSearch.lowercased())
             }
         }
     }

@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct DetailView: View {
-    var item:IBook
+    @State var item:IBook
     
     var body: some View {
+        let _ = print("Detail view")
         ScrollView {
             VStack (spacing: 10){
-                AsyncImage(url: URL(string:item.getImageURL())) { image in
+                AsyncImage(url: URL(string:item.imageURL)) { image in
                     image.resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxHeight: 200)
                 } placeholder: {
-                    frame(width: 100, height: 200)
+                    Image(systemName: "circle.dotted")
+                        .frame(width: 100, height: 200)
                 }
-                Text(item.getTitle())
+                Text(item.title)
                     .font(.largeTitle)
                     .lineLimit(3)
                     .multilineTextAlignment(.center)
-                Text(item.getAuthor())
+                Text(item.author)
                 Divider()
                 Spacer()
             }

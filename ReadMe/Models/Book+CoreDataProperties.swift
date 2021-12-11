@@ -16,10 +16,10 @@ extension Book {
         return NSFetchRequest<Book>(entityName: "Book")
     }
 
-    @NSManaged public var isbn: String!
-    @NSManaged public var author: String!
-    @NSManaged public var title: String!
-    @NSManaged public var imageURL: String!
+    @NSManaged public var isbn: String
+    @NSManaged public var author: String
+    @NSManaged public var title: String
+    @NSManaged public var imageURL: String
     @NSManaged public var stage: Int16
 
 }

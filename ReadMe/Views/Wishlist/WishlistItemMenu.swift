@@ -7,16 +7,22 @@
 
 import SwiftUI
 
-struct WishlistItemMenu: ListMenu {
+struct WishlistItemMenu: ListItemMenu {
     
     let callbacks:WishlistListViewItemCallbacks
-    var book: IBook?
+    @State private var book: IBook? = nil
     
     var body: some View {
         Menu {
-            WishlistItemContextMenu(callbacks: callbacks, book: book)
+            if(book != nil) {
+                WishlistItemContextMenu(callbacks: callbacks, book: book!)
+            }
         } label: {
             Image(systemName: "ellipsis")
         }
+    }
+    
+    func setBook(book: IBook) {
+        self.book = book
     }
 }

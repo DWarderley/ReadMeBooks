@@ -9,7 +9,7 @@ import Foundation
 
 protocol IBook {
     var isbn:String { get }
-    func getAuthor() -> String
-    func getTitle() -> String
-    func getImageURL() -> String
+    var author:String { get }
+    var title:String { get }
+    var imageURL:String { get }
 }
