@@ -1,14 +1,14 @@
 //
-//  WishlistItemContextMenu.swift
+//  ReadingListItemContextMenu.swift
 //  ReadMe
 //
-//  Created by David Warderley on 30/11/2021.
+//  Created by David Warderley on 12/12/2021.
 //
 
 import SwiftUI
 
-struct WishlistItemContextMenu: ListItemMenu {
-    let callbacks:WishlistListViewItemCallbacks
+struct ReadingListItemContextMenu: ListItemMenu {
+    let callbacks:ReadingListViewItemCallbacks
     let bookCollection:BookCollection
     
     @ViewBuilder
@@ -34,17 +34,11 @@ struct WishlistItemContextMenu: ListItemMenu {
                Label("Move Down", systemImage: "arrow.down")
             }
         }
-        
+
         Button {
-           callbacks.onMoveToStarted(book)
+           callbacks.onMoveToWishlist(book)
         } label: {
-           Label("Start Reading", systemImage: "book")
-        }
-        
-        Button {
-           callbacks.onMoveToRead(book)
-        } label: {
-           Label("Move to Read", systemImage: "hand.thumbsup")
+           Label("Move back to Wishlist", systemImage: "star.circle")
         }
     }
     

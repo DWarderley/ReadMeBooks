@@ -29,9 +29,11 @@ struct WishlistView: View {
                 },
                 onMoveUp: { book in
                     wishlists.moveUp(book: book)
-                }, onMoveDown: { book in
+                },
+                onMoveDown: { book in
                     wishlists.moveDown(book: book)
-                }, onDelete: { book in
+                },
+                onDelete: { book in
                     wishlists.remove(book: book)
                     bookOperations.delete(book: book)
                 })

@@ -18,13 +18,13 @@ class MockBookOperations: IBookOperations {
     }
     
     func fetchStageCollection(stage: Stage) -> BookCollection {
-        print("HELLEO")
         let collection = BookCollection(items: books)
-        print("coll \(collection)")
         return collection
     }
     
     func createBook(book:IBook) {}
+    
+    func moveToWishlist(book: IBook) {}
     
     func moveToReading(book: IBook) {}
     

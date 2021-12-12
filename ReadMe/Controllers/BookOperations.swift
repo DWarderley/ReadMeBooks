@@ -64,20 +64,23 @@ class BookOperations: IBookOperations {
         return bookStages[stage]!;
     }
     
+    func moveToWishlist(book: IBook) {
+        moveToStage(book: book, stage: Stage.Wishlist)
+    }
+    
     func moveToReading(book: IBook) {
-        if let wrapper = book as? CoreDataBookWrapper {
-            bookStages[Stage(rawValue: wrapper.book.stage)!]?.remove(book: book)
-            wrapper.book.stage = Stage.Reading.rawValue
-            bookStages[Stage.Reading]?.add(book: book)
-            save()
-        }
+        moveToStage(book: book, stage: Stage.Reading)
     }
     
     func moveToRead(book: IBook) {
+        moveToStage(book: book, stage: Stage.Read)
+    }
+    
+    private func moveToStage(book: IBook, stage:Stage) {
         if let wrapper = book as? CoreDataBookWrapper {
             bookStages[Stage(rawValue: wrapper.book.stage)!]?.remove(book: book)
-            wrapper.book.stage = Stage.Read.rawValue
-            bookStages[Stage.Read]?.add(book: book)
+            wrapper.book.stage = stage.rawValue
+            bookStages[stage]?.add(book: book)
             save()
         }
     }
