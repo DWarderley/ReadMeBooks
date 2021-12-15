@@ -22,6 +22,12 @@
 		55727A30275947410029DD65 /* WishlistItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55727A2F275947410029DD65 /* WishlistItemContextMenu.swift */; };
 		55727A32275947550029DD65 /* WishlistItemMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55727A31275947550029DD65 /* WishlistItemMenu.swift */; };
 		55727A39275952DD0029DD65 /* ListItemDummyRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55727A38275952DC0029DD65 /* ListItemDummyRenderer.swift */; };
+		5578E02C276A88FE000BBDFD /* SearchableBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E02B276A88FE000BBDFD /* SearchableBook.swift */; };
+		5578E030276A8A07000BBDFD /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E02F276A8A07000BBDFD /* SearchController.swift */; };
+		5578E034276A8D06000BBDFD /* SearchableBookCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E033276A8D06000BBDFD /* SearchableBookCollection.swift */; };
+		5578E036276A96B5000BBDFD /* SearchableBookWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E035276A96B5000BBDFD /* SearchableBookWrapper.swift */; };
+		5578E039276A97FC000BBDFD /* ISearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E038276A97FC000BBDFD /* ISearchController.swift */; };
+		5578E03B276A98CE000BBDFD /* MockSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578E03A276A98CE000BBDFD /* MockSearchController.swift */; };
 		5579A7752763FD8500725BB3 /* BookCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579A7742763FD8500725BB3 /* BookCollection.swift */; };
 		55841FF5275BBCF900E6A2BE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55841FF4275BBCF900E6A2BE /* SearchBarView.swift */; };
 		55841FF7275BCE5300E6A2BE /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55841FF6275BCE5300E6A2BE /* Stage.swift */; };
@@ -61,6 +67,12 @@
 		55727A2F275947410029DD65 /* WishlistItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistItemContextMenu.swift; sourceTree = "<group>"; };
 		55727A31275947550029DD65 /* WishlistItemMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistItemMenu.swift; sourceTree = "<group>"; };
 		55727A38275952DC0029DD65 /* ListItemDummyRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemDummyRenderer.swift; sourceTree = "<group>"; };
+		5578E02B276A88FE000BBDFD /* SearchableBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableBook.swift; sourceTree = "<group>"; };
+		5578E02F276A8A07000BBDFD /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		5578E033276A8D06000BBDFD /* SearchableBookCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableBookCollection.swift; sourceTree = "<group>"; };
+		5578E035276A96B5000BBDFD /* SearchableBookWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableBookWrapper.swift; sourceTree = "<group>"; };
+		5578E038276A97FC000BBDFD /* ISearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISearchController.swift; sourceTree = "<group>"; };
+		5578E03A276A98CE000BBDFD /* MockSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchController.swift; sourceTree = "<group>"; };
 		5579A7742763FD8500725BB3 /* BookCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollection.swift; sourceTree = "<group>"; };
 		55841FF4275BBCF900E6A2BE /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		55841FF6275BCE5300E6A2BE /* Stage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
@@ -138,9 +150,48 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		5578E02D276A8909000BBDFD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5584200F2761608D00E6A2BE /* CoreDataBookWrapper.swift */,
+				55841FFE275C2E5000E6A2BE /* Book+CoreDataClass.swift */,
+				55841FFF275C2E5000E6A2BE /* Book+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		5578E031276A8CD2000BBDFD /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				55A03E862755166300A49F43 /* PreviewData.swift */,
+				55A03E842755151B00A49F43 /* BookSummary.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		5578E032276A8CD8000BBDFD /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				5578E02B276A88FE000BBDFD /* SearchableBook.swift */,
+				5578E033276A8D06000BBDFD /* SearchableBookCollection.swift */,
+				5578E035276A96B5000BBDFD /* SearchableBookWrapper.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		5578E037276A97EC000BBDFD /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				5578E02F276A8A07000BBDFD /* SearchController.swift */,
+				5578E038276A97FC000BBDFD /* ISearchController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		55841FFB275C292A00E6A2BE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5578E037276A97EC000BBDFD /* Search */,
 				55842008275FD12500E6A2BE /* Mock */,
 				55841FFC275C293E00E6A2BE /* PersistenceController.swift */,
 				55842004275F783C00E6A2BE /* BookOperations.swift */,
@@ -153,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				55842009275FD13600E6A2BE /* MockBookOperations.swift */,
+				5578E03A276A98CE000BBDFD /* MockSearchController.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -222,14 +274,12 @@
 		55A03E832755150100A49F43 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				55841FFE275C2E5000E6A2BE /* Book+CoreDataClass.swift */,
-				55841FFF275C2E5000E6A2BE /* Book+CoreDataProperties.swift */,
-				55A03E842755151B00A49F43 /* BookSummary.swift */,
-				55A03E862755166300A49F43 /* PreviewData.swift */,
+				5584200D2761606B00E6A2BE /* IBook.swift */,
+				5578E032276A8CD8000BBDFD /* Search */,
+				5578E031276A8CD2000BBDFD /* Mock */,
+				5578E02D276A8909000BBDFD /* CoreData */,
 				55841FF6275BCE5300E6A2BE /* Stage.swift */,
 				55841FF8275C269B00E6A2BE /* BookCoreData.xcdatamodeld */,
-				5584200D2761606B00E6A2BE /* IBook.swift */,
-				5584200F2761608D00E6A2BE /* CoreDataBookWrapper.swift */,
 				5579A7742763FD8500725BB3 /* BookCollection.swift */,
 			);
 			path = Models;
@@ -306,16 +356,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				5509CBC927660D7400C03073 /* ReadListItemContextMenu.swift in Sources */,
+				5578E03B276A98CE000BBDFD /* MockSearchController.swift in Sources */,
+				5578E039276A97FC000BBDFD /* ISearchController.swift in Sources */,
 				55A03E822755140300A49F43 /* ListItemView.swift in Sources */,
 				55842007275FD0F400E6A2BE /* IBookOperations.swift in Sources */,
 				5509CBBE2766065100C03073 /* ReadingListItemMenu.swift in Sources */,
 				5584200E2761606B00E6A2BE /* IBook.swift in Sources */,
 				55A03E852755151B00A49F43 /* BookSummary.swift in Sources */,
 				5579A7752763FD8500725BB3 /* BookCollection.swift in Sources */,
+				5578E030276A8A07000BBDFD /* SearchController.swift in Sources */,
 				558420132761667700E6A2BE /* ListItemMenu.swift in Sources */,
 				5584200A275FD13600E6A2BE /* MockBookOperations.swift in Sources */,
 				55841FFA275C269B00E6A2BE /* BookCoreData.xcdatamodeld in Sources */,
 				5509CBBC2766063E00C03073 /* ReadingList.swift in Sources */,
+				5578E02C276A88FE000BBDFD /* SearchableBook.swift in Sources */,
 				55727A282758234C0029DD65 /* TabListsView.swift in Sources */,
 				55A03E8927554F0700A49F43 /* ListView.swift in Sources */,
 				55727A262756D9F80029DD65 /* WishlistListViewItemCallbacks.swift in Sources */,
@@ -323,11 +377,13 @@
 				55A03E8B27556EB700A49F43 /* DetailView.swift in Sources */,
 				55727A2C275829A20029DD65 /* WishlistView.swift in Sources */,
 				55841FFD275C293E00E6A2BE /* PersistenceController.swift in Sources */,
+				5578E034276A8D06000BBDFD /* SearchableBookCollection.swift in Sources */,
 				5509CBCB27660D8200C03073 /* ReadListViewItemCallbacks.swift in Sources */,
 				55727A32275947550029DD65 /* WishlistItemMenu.swift in Sources */,
 				5509CBC22766068500C03073 /* ReadingListViewItemCallbacks.swift in Sources */,
 				55842005275F783C00E6A2BE /* BookOperations.swift in Sources */,
 				5509CBC02766066000C03073 /* ReadingListItemContextMenu.swift in Sources */,
+				5578E036276A96B5000BBDFD /* SearchableBookWrapper.swift in Sources */,
 				55727A30275947410029DD65 /* WishlistItemContextMenu.swift in Sources */,
 				55841FF5275BBCF900E6A2BE /* SearchBarView.swift in Sources */,
 				55841FF7275BCE5300E6A2BE /* Stage.swift in Sources */,

@@ -54,7 +54,7 @@ struct WishlistView: View {
             .padding(.trailing, 20)
         }
         .sheet(isPresented: $showSearch) {
-            SearchView(isVisible: $showSearch, items:availableBooks) { bookSummary in
+            SearchView(isVisible: $showSearch, searchController: SearchController()) { bookSummary in
                 bookOperations.createBook(book: bookSummary)
                 print("Created book")
             }

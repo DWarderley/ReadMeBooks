@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var toSearch = ""
     @Binding var isVisible: Bool
-    var items:[IBook]
+    var searchController:ISearchController
     let onSelected:(IBook) -> Void
+    
+    @State private var toSearch = ""
+    @State private var items:[IBook] = []
     
     var body: some View {
         VStack{
@@ -19,6 +21,9 @@ struct SearchView: View {
                 SearchBarView(toSearch: $toSearch, onCloseRequest: {
                     isVisible = false
                 })
+                .onChange(of: toSearch) { _ in
+                    RefreshSearch()
+                }
                 Button("Cancel") {
                     isVisible = false
                 }
@@ -26,7 +31,7 @@ struct SearchView: View {
                 .padding(.leading, -10)
             }
             List {
-                ForEach(search, id: \.isbn) { item in
+                ForEach(items, id: \.isbn) { item in
                     ListItemView(book: item,
                          menu: ListItemDummyRenderer(),
                                  contextMenu: ListItemDummyRenderer(), onTapped: {
@@ -44,20 +49,15 @@ struct SearchView: View {
         }
     }
     
-    var search: [IBook] {
-        if toSearch.isEmpty {
-            return items
-        } else {
-            return items.filter {
-                $0.title.lowercased().contains(toSearch.lowercased()) ||
-                $0.author.lowercased().contains(toSearch.lowercased())
-            }
+    func RefreshSearch() {
+        searchController.search(query: toSearch) { books in
+            items = books
         }
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(isVisible: .constant(true), items: PreviewData().items, onSelected: { _ in })
+        SearchView(isVisible: .constant(true), searchController: MockSearchController(), onSelected: { _ in })
     }
 }
