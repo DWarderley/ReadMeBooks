@@ -6,23 +6,27 @@
 //
 
 import SwiftUI
+import Foundation
+import Combine
 
 struct SearchView: View {
     @Binding var isVisible: Bool
     var searchController:ISearchController
     let onSelected:(IBook) -> Void
+    var subscription: Set<AnyCancellable> = []
     
-    @State private var toSearch = ""
     @State private var items:[IBook] = []
+    @StateObject private var searchObserver:SearchFieldObserver = SearchFieldObserver()
+    
     
     var body: some View {
         VStack{
             HStack {
-                SearchBarView(toSearch: $toSearch, onCloseRequest: {
+                SearchBarView(toSearch: $searchObserver.searchText, onCloseRequest: {
                     isVisible = false
                 })
-                .onChange(of: toSearch) { _ in
-                    RefreshSearch()
+                .onReceive(searchObserver.$toSearch) { toSearch in
+                    RefreshSearch(toSearch: toSearch)
                 }
                 Button("Cancel") {
                     isVisible = false
@@ -49,7 +53,7 @@ struct SearchView: View {
         }
     }
     
-    func RefreshSearch() {
+    func RefreshSearch(toSearch:String) {
         searchController.search(query: toSearch) { books in
             items = books
         }

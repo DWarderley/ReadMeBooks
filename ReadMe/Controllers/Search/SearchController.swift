@@ -9,7 +9,12 @@ import Foundation
 
 class SearchController : ISearchController {
     func search(query:String, onComplete:@escaping ([IBook]) -> Void) {
-        if let url = URL(string: "https://openlibrary.org/search.json?title=clean%20code") {
+        if(query.count == 0) {
+            onComplete([])
+        }
+        
+        let encodedQuery:String = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        if let url = URL(string: "https://openlibrary.org/search.json?title=\(String(describing: encodedQuery))") {
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else {
                     onComplete([])

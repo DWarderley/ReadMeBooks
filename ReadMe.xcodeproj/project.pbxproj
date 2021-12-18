@@ -49,6 +49,7 @@
 		55A03E872755166300A49F43 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A03E862755166300A49F43 /* PreviewData.swift */; };
 		55A03E8927554F0700A49F43 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A03E8827554F0700A49F43 /* ListView.swift */; };
 		55A03E8B27556EB700A49F43 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A03E8A27556EB700A49F43 /* DetailView.swift */; };
+		55D17F4D276DE17000261517 /* SearchFieldObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D17F4C276DE17000261517 /* SearchFieldObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,7 @@
 		55A03E862755166300A49F43 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		55A03E8827554F0700A49F43 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		55A03E8A27556EB700A49F43 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		55D17F4C276DE17000261517 /* SearchFieldObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			children = (
 				55727A2D2759462D0029DD65 /* SearchView.swift */,
 				55841FF4275BBCF900E6A2BE /* SearchBarView.swift */,
+				55D17F4C276DE17000261517 /* SearchFieldObserver.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				55727A2C275829A20029DD65 /* WishlistView.swift in Sources */,
 				55841FFD275C293E00E6A2BE /* PersistenceController.swift in Sources */,
 				5578E034276A8D06000BBDFD /* SearchableBookCollection.swift in Sources */,
+				55D17F4D276DE17000261517 /* SearchFieldObserver.swift in Sources */,
 				5509CBCB27660D8200C03073 /* ReadListViewItemCallbacks.swift in Sources */,
 				55727A32275947550029DD65 /* WishlistItemMenu.swift in Sources */,
 				5509CBC22766068500C03073 /* ReadingListViewItemCallbacks.swift in Sources */,
