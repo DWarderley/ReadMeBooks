@@ -11,13 +11,13 @@ import Combine
 
 struct SearchView: View {
     @Binding var isVisible: Bool
+    @State private var searchInProgress: Bool = false
     var searchController:ISearchController
     let onSelected:(IBook) -> Void
     var subscription: Set<AnyCancellable> = []
     
     @State private var items:[IBook] = []
     @StateObject private var searchObserver:SearchFieldObserver = SearchFieldObserver()
-    
     
     var body: some View {
         VStack{
@@ -34,28 +34,37 @@ struct SearchView: View {
                 .padding(.trailing, 10)
                 .padding(.leading, -10)
             }
-            List {
-                ForEach(items, id: \.isbn) { item in
-                    ListItemView(book: item,
-                         menu: ListItemDummyRenderer(),
-                                 contextMenu: ListItemDummyRenderer(), onTapped: {
-                        onSelected(item)
-                        isVisible = false
-                    })
-                }
+            if(searchInProgress) {
+                Image(systemName: "circle.dotted")
+                    .frame(width: 45, height: 45)
+                Spacer()
             }
-            .listStyle(PlainListStyle())
-            .gesture(DragGesture()
-                 .onChanged({ _ in
-                     UIApplication.shared.dismissKeyboard()
-                 })
-             )
+            else {
+                List {
+                    ForEach(items, id: \.isbn) { item in
+                        ListItemView(book: item,
+                             menu: ListItemDummyRenderer(),
+                                     contextMenu: ListItemDummyRenderer(), onTapped: {
+                            onSelected(item)
+                            isVisible = false
+                        })
+                    }
+                }
+                .listStyle(PlainListStyle())
+                .gesture(DragGesture()
+                     .onChanged({ _ in
+                         UIApplication.shared.dismissKeyboard()
+                     })
+                 )
+            }
         }
     }
     
     func RefreshSearch(toSearch:String) {
+        searchInProgress = true
         searchController.search(query: toSearch) { books in
             items = books
+            searchInProgress = false
         }
     }
 }

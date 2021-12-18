@@ -14,7 +14,7 @@ class SearchController : ISearchController {
         }
         
         let encodedQuery:String = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        if let url = URL(string: "https://openlibrary.org/search.json?title=\(String(describing: encodedQuery))") {
+        if let url = URL(string: "https://openlibrary.org/search.json?title=\(String(describing: encodedQuery))&limit=20") {
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else {
                     onComplete([])
@@ -49,7 +49,6 @@ class SearchController : ISearchController {
                     onError()
                 }
             }
-
         }
     }
 }
