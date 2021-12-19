@@ -47,23 +47,18 @@ struct WishlistView: View {
                 } label: {
                     Image(systemName: "plus.circle")
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 45, height: 45)
                 }
             }
             .padding(.bottom, 20)
             .padding(.trailing, 20)
         }
         .sheet(isPresented: $showSearch) {
-            SearchView(isVisible: $showSearch, searchController: SearchController()) { bookSummary in
+            SearchView(isVisible: $showSearch,
+                       searchController: SearchController(bookOperations: bookOperations)) { bookSummary in
                 bookOperations.createBook(book: bookSummary)
                 print("Created book")
             }
-        }
-    }
-    
-    var availableBooks: [IBook] {
-        PreviewData().items.filter { book in
-            return (bookOperations.isTracked(isbn: book.isbn) == false)
         }
     }
 }

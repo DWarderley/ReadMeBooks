@@ -34,6 +34,12 @@ struct ReadingListItemContextMenu: ListItemMenu {
                Label("Move Down", systemImage: "arrow.down")
             }
         }
+        
+        Button {
+           callbacks.onMoveToRead(book)
+        } label: {
+           Label("Move to Read", systemImage: "hand.thumbsup")
+        }
 
         Button {
            callbacks.onMoveToWishlist(book)

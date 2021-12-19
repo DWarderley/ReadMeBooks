@@ -20,6 +20,9 @@ struct ReadingList: View {
     var body: some View {
         ZStack {
             let callbacks = ReadingListViewItemCallbacks(
+                onMoveToRead: { book in
+                    bookOperations.moveToRead(book: book)
+                },
                 onMoveToWishlist: { book in
                     bookOperations.moveToWishlist(book: book)
                 },

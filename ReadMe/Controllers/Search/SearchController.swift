@@ -8,6 +8,13 @@
 import Foundation
 
 class SearchController : ISearchController {
+    
+    let bookOperations:IBookOperations
+    
+    init(bookOperations:IBookOperations) {
+        self.bookOperations = bookOperations
+    }
+    
     func search(query:String, onComplete:@escaping ([IBook]) -> Void) {
         if(query.count == 0) {
             onComplete([])
@@ -20,8 +27,9 @@ class SearchController : ISearchController {
                     onComplete([])
                     return
                 }
-                self.parse(json: data, onComplete: { searchableBooks in
-                    onComplete(searchableBooks.map { SearchableBookWrapper(book: $0)})
+                self.parse(json: data, onComplete: { rawSearchableBooks in
+                    let searchableBooks = self.filterOutTracked(books: rawSearchableBooks.map { SearchableBookWrapper(book: $0)})
+                    onComplete(searchableBooks)
                 }, onError: {
                     onComplete([])
                 })
@@ -49,6 +57,12 @@ class SearchController : ISearchController {
                     onError()
                 }
             }
+        }
+    }
+    
+    func filterOutTracked(books: [IBook]) -> [IBook] {
+        books.filter { book in
+            return (bookOperations.isTracked(isbn: book.isbn) == false)
         }
     }
 }
