@@ -1,7 +1,7 @@
 # ReadMe Books
 An iOS app to keep track of books you wish to read, books you're currently reading and books that you've read.
 
-![Demo](README/Assets/Demo.gif)
+![Demo](README%20Assets/Demo.gif)
 
 - Views written in Swift UI.
 - Uses the OpenLibrary API as the data source for books.
